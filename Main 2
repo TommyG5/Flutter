@@ -1,0 +1,524 @@
+import 'dart:html';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+void main() => runApp(LoginScreen());
+
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginHome(),
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+    );
+  }
+}
+
+class LoginHome extends StatefulWidget {
+  @override
+  State<LoginHome> createState() => _LoginHomeState();
+}
+
+class _LoginHomeState extends State<LoginHome> {
+  var usernameController = new TextEditingController();
+  var passwordController = new TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Screen'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Card(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 100.0,
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Username",
+                        icon: const Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: const Icon(Icons.account_box_rounded),
+                        )),
+                    controller: usernameController,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Password",
+                        icon: const Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: const Icon(Icons.lock_sharp),
+                        )),
+                    obscureText: true,
+                    controller: passwordController,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        if (usernameController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Username is empty!'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else if (passwordController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Password is Empty'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Dashboard()));
+                        }
+                      },
+                      child: Text('Login')),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('No Account'),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => SignupHome()));
+                        },
+                        child: Text('SIGN UP'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Dashboard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DashboardHome(),
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+    );
+  }
+}
+
+class DashboardHome extends StatefulWidget {
+  @override
+  State<DashboardHome> createState() => _DashboardHomeState();
+}
+
+class _DashboardHomeState extends State<DashboardHome> {
+  void addUser(BuildContext context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return Container(
+            color: Colors.orangeAccent,
+            height: MediaQuery.of(context).size.height / 2,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      CircleAvatar(
+                        radius: 50.0,
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                          labelText: 'First Name',
+                          hintText: 'Enter First Name',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                          labelText: 'Middle Initial',
+                          hintText: 'Enter Middle Initial',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                          labelText: 'Surname',
+                          hintText: 'Enter Surname',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                          labelText: 'Block',
+                          hintText: 'Enter Block',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                          labelText: 'Year',
+                          hintText: 'Enter Year',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
+      drawer: Drawer(
+          child: Column(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage('https://i.gifer.com/7Ne0.gif'),
+            radius: 40.0,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (BuildContext context) => User()));
+              //Add navigator here to Navigate to your Users Class
+            },
+            child: ListTile(
+                leading: Icon(Icons.verified_user),
+                title: Text('List of Users')),
+          ),
+        ],
+      )),
+      body: Card(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage('https://i.gifer.com/7Ne0.gif'),
+                  radius: 50.0,
+                ),
+                Center(
+                  child: Text(''),
+                ),
+                ElevatedButton(
+                    onPressed: () {}, child: Text('Nichol Brian B. Galano')),
+                SizedBox(
+                  height: 20.0,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return StatefulBuilder(
+                            builder: (context, setState) {
+                              return AlertDialog(
+                                title: Text('WARNING'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                            'Are you sure you want to log out?'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('CANCEL'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text('LOGOUT'),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  LoginScreen()));
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: Text('LOG OUT')),
+              ],
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            addUser(context);
+          },
+          child: Icon(Icons.add)),
+    );
+  }
+}
+
+class Signup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SignupHome(),
+      theme: ThemeData(
+        primarySwatch: Colors.yellow,
+      ),
+    );
+  }
+}
+
+class SignupHome extends StatefulWidget {
+  @override
+  State<SignupHome> createState() => _SignupHomeState();
+}
+
+class _SignupHomeState extends State<SignupHome> {
+  var FirstnameController = new TextEditingController();
+  var MiddlenameController = new TextEditingController();
+  var LastnameController = new TextEditingController();
+  var BirthdateController = new TextEditingController();
+  var CourseController = new TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      drawer: Drawer(),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your First Name',
+              ),
+              controller: FirstnameController,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your Middle Name',
+              ),
+              controller: MiddlenameController,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your Last Name',
+              ),
+              controller: LastnameController,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your Birthdate',
+              ),
+              controller: BirthdateController,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your Course',
+              ),
+              controller: CourseController,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => LoginHome()));
+                  },
+                  child: Text('CANCEL'),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('SIGN UP'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class User extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: UserHome(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+      ),
+    );
+  }
+}
+
+class UserHome extends StatefulWidget {
+  @override
+  State<UserHome> createState() => _UserHomeState();
+}
+
+class _UserHomeState extends State<UserHome> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => Dashboard()));
+          },
+        ),
+        title: Center(child: Text('List of Users')),
+      ),
+      body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+                leading: Icon(Icons.tag_faces_sharp),
+                title: Text("USER # $index "),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {},
+                ));
+          }),
+    );
+  }
+}
